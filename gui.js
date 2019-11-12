@@ -22,6 +22,8 @@ class GUI {
             glitchActive: false,
             glitchAnimate: false,
             glitchAberration: 1.0,
+
+            ditherActive: false,
         };
 
         // Construct the settings of the GUI
@@ -41,6 +43,15 @@ class GUI {
         bloomEffectFolder.add(this.effectController, 'bloomActive').name(
             'Active').onChange(function(flag) {
                 thisInstance.mainWindow.activePasses["Bloom Pass"] = !thisInstance.mainWindow.activePasses["Bloom Pass"];
+                thisInstance.mainWindow.initComposer();
+            });
+
+        // Dither Effect Controller
+        let ditherEffectFolder = this.gui.addFolder("Dither Effect");
+
+        ditherEffectFolder.add(this.effectController, "ditherActive").name(
+            "Active").onChange(function(flag) {
+                thisInstance.mainWindow.activePasses["Dither Pass"] = !thisInstance.mainWindow.activePasses["Dither Pass"];
                 thisInstance.mainWindow.initComposer();
             });
 

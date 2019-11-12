@@ -13,6 +13,7 @@ class MainWindow {
             "ASCII Pass": false,
             "Bloom Pass": false,
             "CRT Pass": false,
+            "Dither Pass": false,
         };
 
         // Initialize the MainWindow
@@ -65,6 +66,13 @@ class MainWindow {
         if (this.activePasses["Bloom Pass"] == true) {
             this.composer.addPass(this.bloomPass);
         }
+        // Dithering Pass
+        this.ditherPass = new THREE.ShaderPass(THREE.DitherShader);
+        this.ditherPass.uniforms["resolution"].value.x = this.WIDTH * window.devicePixelRatio;
+        this.ditherPass.uniforms["resolution"].value.y = this.HEIGHT * window.devicePixelRatio;
+        if (this.activePasses["Dither Pass"] == true) {
+            this.composer.addPass(this.ditherPass);
+        }
         // Sobel Pass
         this.sobelPass = new THREE.ShaderPass(THREE.SobelShader);
         this.sobelPass.uniforms["resolution"].value.x = this.WIDTH * window.devicePixelRatio;
@@ -114,7 +122,9 @@ class MainWindow {
 
     initRenderer() {
         // Create basic WebGLRenderer
-        this.renderer = new THREE.WebGLRenderer({antialias: true});
+        let canvas = document.createElement('canvas');
+        let context = canvas.getContext('webgl2', {alpha: false});
+        this.renderer = new THREE.WebGLRenderer({canvas: canvas, context: context, antialias: true});
         this.renderer.setSize(this.WIDTH, this.HEIGHT);
         this.renderer.setClearColor(0x000000, 1);
         document.body.appendChild(this.renderer.domElement);
