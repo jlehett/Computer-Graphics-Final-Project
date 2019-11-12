@@ -61,13 +61,6 @@ class MainWindow {
         if (this.activePasses["Sobel Pass"] == true) {
             this.composer.addPass(this.sobelPass);
         }
-        // ASCII Pass
-        this.ASCIIPass = new THREE.ShaderPass(THREE.ASCIIShader);
-        this.ASCIIPass.uniforms["resolution"].value.x = this.WIDTH * window.devicePixelRatio;
-        this.ASCIIPass.uniforms["resolution"].value.y = this.HEIGHT * window.devicePixelRatio;
-        if (this.activePasses["ASCII Pass"] == true) {
-            this.composer.addPass(this.ASCIIPass);
-        }
         // Glitch Pass
         this.glitchPass = new THREE.ShaderPass(THREE.GlitchShader);
         this.glitchPass.uniforms["resolution"].value.x = this.WIDTH * window.devicePixelRatio;
