@@ -54,6 +54,17 @@ class MainWindow {
         // Create Post-Processing Effects Composer
         this.composer = new THREE.EffectComposer(this.renderer);
         this.composer.addPass(new THREE.RenderPass(this.scene, this.camera));
+        // Bloom Pass
+        this.bloomPass = new THREE.ShaderPass(THREE.BloomShader);
+        this.bloomPass.uniforms["resolution"].value.x = this.WIDTH * window.devicePixelRatio;
+        this.bloomPass.uniforms["resolution"].value.y = this.HEIGHT * window.devicePixelRatio;
+        if (this.gui) {
+            this.bloomPass.uniforms["blurSize"].value = this.gui.effectController["bloomSize"];
+            this.bloomPass.uniforms["effectStrength"].value = this.gui.effectController["bloomEffectStrength"];
+        }
+        if (this.activePasses["Bloom Pass"] == true) {
+            this.composer.addPass(this.bloomPass);
+        }
         // Sobel Pass
         this.sobelPass = new THREE.ShaderPass(THREE.SobelShader);
         this.sobelPass.uniforms["resolution"].value.x = this.WIDTH * window.devicePixelRatio;
@@ -71,17 +82,6 @@ class MainWindow {
         }
         if (this.activePasses["Glitch Pass"] == true) {
             this.composer.addPass(this.glitchPass);
-        }
-        // Bloom Pass
-        this.bloomPass = new THREE.ShaderPass(THREE.BloomShader);
-        this.bloomPass.uniforms["resolution"].value.x = this.WIDTH * window.devicePixelRatio;
-        this.bloomPass.uniforms["resolution"].value.y = this.HEIGHT * window.devicePixelRatio;
-        if (this.gui) {
-            this.bloomPass.uniforms["blurSize"].value = this.gui.effectController["bloomSize"];
-            this.bloomPass.uniforms["effectStrength"].value = this.gui.effectController["bloomEffectStrength"];
-        }
-        if (this.activePasses["Bloom Pass"] == true) {
-            this.composer.addPass(this.bloomPass);
         }
         // CRT Pass
         this.crtPass = new THREE.ShaderPass(THREE.CRTShader);

@@ -12,8 +12,6 @@ class GUI {
 
             sobelActive: false,
 
-            ASCIIActive: false,
-
             crtActive: false,
             crtLineWidth: 7.0,
             crtRandomValue: 0.0,
@@ -65,13 +63,23 @@ class GUI {
                 thisInstance.mainWindow.initComposer();
             });
 
-        // ASCII Effect Controller
-        let ASCIIEffectFolder = this.gui.addFolder("ASCII Effect");
+        // Glitch Effect Controller
+        let glitchEffectFolder = this.gui.addFolder("Glitch Effect");
 
-        ASCIIEffectFolder.add(this.effectController, "ASCIIActive").name(
-            "Active").onChange(function(flag) {
-                thisInstance.mainWindow.activePasses["ASCII Pass"] = !thisInstance.mainWindow.activePasses["ASCII Pass"];
+        glitchEffectFolder.add(this.effectController, 'glitchActive').name(
+            'Active').onChange(function(flag) {
+                thisInstance.mainWindow.activePasses["Glitch Pass"] = !thisInstance.mainWindow.activePasses["Glitch Pass"];
                 thisInstance.mainWindow.initComposer();
+            });
+
+        let glitchSettingsFolder = glitchEffectFolder.addFolder("Settings");
+        glitchSettingsFolder.add(this.effectController, "glitchAnimate").name(
+            "Animate").onChange(function() {
+                thisInstance.mainWindow.glitchPass.uniforms["animate"].value = thisInstance.effectController['glitchAnimate'];
+            });
+        glitchSettingsFolder.add(this.effectController, 'glitchAberration', 0.0, 100.0).name(
+            'Aberration').onChange(function() {
+                thisInstance.mainWindow.glitchPass.uniforms["shiftScale"].value = thisInstance.effectController['glitchAberration'];
             });
 
         // CRT Effect Controller
@@ -94,25 +102,6 @@ class GUI {
         crtSettingsFolder.add(this.effectController, 'crtAngular', 1.0, 2.0).name(
             'Angular').onChange(function() {
                 thisInstance.mainWindow.crtPass.uniforms['angular'].value = thisInstance.effectController['crtAngular'];
-            });
-
-        // Glitch Effect Controller
-        let glitchEffectFolder = this.gui.addFolder("Glitch Effect");
-
-        glitchEffectFolder.add(this.effectController, 'glitchActive').name(
-            'Active').onChange(function(flag) {
-                thisInstance.mainWindow.activePasses["Glitch Pass"] = !thisInstance.mainWindow.activePasses["Glitch Pass"];
-                thisInstance.mainWindow.initComposer();
-            });
-
-        let glitchSettingsFolder = glitchEffectFolder.addFolder("Settings");
-        glitchSettingsFolder.add(this.effectController, "glitchAnimate").name(
-            "Animate").onChange(function() {
-                thisInstance.mainWindow.glitchPass.uniforms["animate"].value = thisInstance.effectController['glitchAnimate'];
-            });
-        glitchSettingsFolder.add(this.effectController, 'glitchAberration', 0.0, 100.0).name(
-            'Aberration').onChange(function() {
-                thisInstance.mainWindow.glitchPass.uniforms["shiftScale"].value = thisInstance.effectController['glitchAberration'];
             });
     }
 }
