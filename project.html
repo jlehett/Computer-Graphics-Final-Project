@@ -1,0 +1,52 @@
+<!-- Template utilized from Lecture notes -->
+<!doctype html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title>John Lehett: Final Project</title>
+        <script src="https://threejs.org/build/three.min.js"></script>
+        <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+        <script src="https://threejs.org/examples/js/loaders/OBJLoader.js"></script>
+        <script src="https://threejs.org/examples/js/loaders/MTLLoader.js"></script>
+        <script src="https://threejs.org/examples/js/geometries/TeapotBufferGeometry.js"></script>
+        <script src="https://threejs.org/examples/js/shaders/CopyShader.js"></script>
+        <script src="https://threejs.org/examples/js/postprocessing/EffectComposer.js"></script>
+        <script src="https://threejs.org/examples/js/postprocessing/RenderPass.js"></script>
+        <script src="https://threejs.org/examples/js/postprocessing/ShaderPass.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.6/dat.gui.min.js"></script>
+    </head>
+
+    <body>
+
+        <!-- Main JS Code -->
+        <script src="./gui.js"></script>
+        <script src="./mainWindow.js"></script>
+
+        <!-- Shader JS Codes -->
+        <script src="./effects/SobelShader.js"></script>
+        <script src="./effects/GlitchShader.js"></script>
+        <script src="./effects/BloomShader.js"></script>
+        <script src="./effects/CRTShader.js"></script>
+        <script src="./effects/ASCIIShader.js"></script>
+
+        <script>
+            "use strict";
+            
+            init();
+
+            function init() {
+                // Instantiate main window
+                let mainWindow = new MainWindow();
+
+                // Instantiate GUI
+                let gui = new GUI(mainWindow);
+
+                // Set class variables
+                mainWindow.setGUI(gui);
+            }
+        </script>
+
+    </body>
+
+</html>
