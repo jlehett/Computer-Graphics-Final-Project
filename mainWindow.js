@@ -144,7 +144,8 @@ class MainWindow {
 
     initBackground() {
         // Create the panoramic background with pano.jpg texture
-        let texture = new THREE.TextureLoader().load('pano.jpg');
+        let textureLoader = new THREE.TextureLoader();
+        let texture = textureLoader.load('https://upload.wikimedia.org/wikipedia/commons/0/0a/Veste_Oberhaus_%28Passau%2C_full_spherical_panoramic_image%2C_equirectangular_projection%29.jpg');
 
         let geometry = new THREE.SphereBufferGeometry(150, 60, 40);
         geometry.scale(-1, 1, 1);
